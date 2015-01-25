@@ -24,8 +24,34 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 
+            //"TODO get http://www.tagesschau.de/api/impressum/mobileappimpressum100.json"
+
+
 Page {
     id: impressumPage
+
+    SilicaFlickable {
+        anchors.fill: parent
+
+        PullDownMenu {
+            MenuItem {
+                text: "Update"
+                onClicked: {
+                    request('http://www.tagesschau.de/api/impressum/mobileappimpressum100.json', function (o) {
+
+                            //log hte json
+                            console.log(o.responseText);
+
+                            //transalte response into object
+                            var d = eval('new Object(' + o.responseText + ')');
+
+                            // access elements inside json object with dor notation
+                            impressumLabel.text = copytext.text
+                            });
+                }
+            }
+        }
+    }
 
     Column {
         id: column
@@ -34,8 +60,23 @@ Page {
         PageHeader {
             title: "Impressum"
         }
-        Label {
-            text: "TODO\n get http://www.tagesschau.de/api/impressum/mobileappimpressum100.json"
+        Text {
+            id: impressumLabel
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: 500
+            wrapMode: Text.WordWrap
+            text: ""
+            color: Theme.highlightColor
         }
+    }
+    function request(url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = (function(myxhr) {
+        return function() {
+            callback(myxhr);
+        }
+    })(xhr);
+    xhr.open('GET', url, true);
+    xhr.send('');
     }
 }
