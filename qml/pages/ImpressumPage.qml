@@ -46,7 +46,7 @@ Page {
                             var d = eval('new Object(' + o.responseText + ')');
 
                             // access elements inside json object with dor notation
-                            impressumLabel.text = copytext.text
+                            impressumLabel.text = d.date
                             });
                 }
             }
