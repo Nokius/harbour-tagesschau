@@ -35,8 +35,11 @@ Page {
             title: "Über"
         }
         Text {
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: 480
+            anchors {
+                left: parent.left
+                right: parent.right
+                margins: Theme.paddingLarge
+            }
             text: "Tagesschau für Sailfish OS\n alpha1"
             color: Theme.highlightColor
         }
@@ -58,7 +61,7 @@ Page {
         }
         Text {
             anchors.horizontalCenter: parent.horizontalCenter
-            width: 4800
+            width: 480
             wrapMode: Text.WordWrap
             text: "Dieses Program wurde unter der WTFPL veröffentlicht."
             color: Theme.highlightColor

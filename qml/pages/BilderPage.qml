@@ -25,30 +25,17 @@ import Sailfish.Silica 1.0
 
 
 Page {
-    id: kontaktPage
+    id: bilderPage
 
     Column {
         id: column
-        width: kontaktPage.width
+        width: bilderPage.width
 
         PageHeader {
-            title: "Kontakt"
+            title: "Bilder"
         }
-        Text {
-            anchors {
-                left: parent.left
-                right: parent.right
-                margins: Theme.paddingLarge
-            }
-            wrapMode: Text.WordWrap
-            text: "Hier können Sie Kontakt mit der Tagesschau aufnehmen, um zu bereichten, was Sie gesehen oder erlebt haben. An die E-Mail können Sie zudem auch ein eigenes Foto oder Video anhängen:"
-            color: Theme.highlightColor
-        }
-        Button {
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: 300
-            text: "Email"
-            onClicked: Qt.openUrlExternally("mailto:redaktion@tagesschau.de?subject=Bericht")
+        Label {
+            text: "TODO"
         }
     }
 }

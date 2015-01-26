@@ -28,7 +28,7 @@ Page {
 
     PageHeader {
         id: header
-        title: "weitere Nachrichten"
+        title: "Menü"
         height: 80
         width: ueberPage.width
         anchors.left: parent.left
@@ -42,10 +42,10 @@ Page {
          ListElement { name: "Wirtschaft"; icon: "images/wirtschaft.png"; page: "WirtschaftPage.qml" }
          ListElement { name: "Regional"; icon: "images/regional.png"; page: "RegionalPage.qml" }
          ListElement { name: "Wetter"; icon: "images/wetter.png"; page: "WetterPage.qml" }
-         //ListElement { name: "Kultur"; icon: "images/kultur.png"; page: "KulturPage.qml" }
-         //ListElement { name: "Video"; icon: "images/video.png"; page: "VideoPage.qml" }
-         //ListElement { name: "Audio"; icon: "images/audio.png"; page: "AudioPage.qml" }
-         //ListElement { name: "Bilder"; icon: "images/bilder.png"; page: "BilderPage.qml" }
+         ListElement { name: "Kultur"; icon: "images/kultur.png"; page: "KulturPage.qml" }
+         ListElement { name: "Video"; icon: "images/video.png"; page: "VideoPage.qml" }
+         ListElement { name: "Audio"; icon: "images/audio.png"; page: "AudioPage.qml" }
+         ListElement { name: "Bilder"; icon: "images/bilder.png"; page: "BilderPage.qml" }
          ListElement { name: "Impressum"; icon: "images/impressum.png"; page: "ImpressumPage.qml" }
          ListElement { name: "Über"; icon: "images/ueber.png"; page: "AboutPage.qml" }
          ListElement { name: "Kontakt"; icon: "images/kontakt.png"; page: "KontaktPage.qml" }

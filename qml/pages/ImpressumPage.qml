@@ -54,31 +54,31 @@ Page {
 
         contentHeight: column.height
 
-    }
-    Column {
-        id: column
-        width: impressumPage.width
+        Column {
+            id: column
+            width: impressumPage.width
 
-        PageHeader {
-            title: "Impressum"
-        }
-        Text {
-            id: impressumLabel
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: 480
-            wrapMode: Text.WordWrap
-            text: ""
-            color: Theme.highlightColor
-        }
-    }
-    function request(url, callback) {
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = (function(myxhr) {
-            return function() {
-                callback(myxhr);
+            PageHeader {
+                title: "Impressum"
             }
-        })(xhr);
-        xhr.open('GET', url, true);
-        xhr.send('');
+            Text {
+                id: impressumLabel
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 480
+                wrapMode: Text.WordWrap
+                text: ""
+                color: Theme.highlightColor
+            }
+        }
+        function request(url, callback) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = (function(myxhr) {
+                return function() {
+                    callback(myxhr);
+                }
+            })(xhr);
+            xhr.open('GET', url, true);
+            xhr.send('');
+        }
     }
 }

@@ -34,6 +34,9 @@ OTHER_FILES += qml/harbour-tagesschau.qml \
     qml/pages/ImpressumPage.qml \
     harbour-tagesschau.png \
     harbour-tagesschau.svg \
-    qml/pages/MenuePage.qml
+    qml/pages/MenuePage.qml \
+    qml/pages/VideoPage.qml \
+    qml/pages/AudioPage.qml \
+    qml/pages/BilderPage.qml
 
 
