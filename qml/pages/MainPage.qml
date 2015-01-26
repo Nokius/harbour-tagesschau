@@ -32,32 +32,12 @@ Page {
 
         PullDownMenu {
             MenuItem {
-                text: ("Über")
-                onClicked: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
+                text: ("Menü")
+                onClicked: pageStack.push(Qt.resolvedUrl("MenuePage.qml"))
             }
             MenuItem {
-                text: ("Wetter")
-                onClicked: pageStack.push(Qt.resolvedUrl("WetterPage.qml"))
-            }
-            MenuItem {
-                text: ("Kultur")
-                onClicked: pageStack.push(Qt.resolvedUrl("KulturPage.qml"))
-            }
-            MenuItem {
-                text: ("Regional")
-                onClicked: pageStack.push(Qt.resolvedUrl("RegionalPage.qml"))
-            }
-            MenuItem {
-                text: ("Wirtschaft")
-                onClicked: pageStack.push(Qt.resolvedUrl("WirtschaftPage.qml"))
-            }
-            MenuItem {
-                text: ("Ausland")
-                onClicked: pageStack.push(Qt.resolvedUrl("AuslandPage.qml"))
-            }
-            MenuItem {
-                text: ("Inland")
-                onClicked: pageStack.push(Qt.resolvedUrl("InlandPage.qml"))
+                text: ("Ak­tu­a­li­sie­ren")
+                //onClicked: pageStack.push(Qt.resolvedUrl("AuslandPage.qml"))
             }
         }
 

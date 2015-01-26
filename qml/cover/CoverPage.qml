@@ -34,15 +34,15 @@ CoverBackground {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: coverImage.bottom
         //anchors.centerIn: parent
-        text: ("Tagesschau")
+        text: "Tagesschau"
     }
 
-    CoverActionList {
+    /*CoverActionList {
         CoverAction {
             iconSource: "image://theme/icon-cover-refresh"
-            //action TODO
+            action TODO
         }
-    }
+    }*/
 }
 
 

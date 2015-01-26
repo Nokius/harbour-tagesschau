@@ -27,76 +27,62 @@ import Sailfish.Silica 1.0
 Page {
     id: aboutPage
 
-    SilicaFlickable {
-        anchors.fill: parent
+    Column {
+        id: column
+        width: aboutPage.width
 
-        PullDownMenu {
-            MenuItem {
-                text: ("Kontakt")
-                onClicked: pageStack.push(Qt.resolvedUrl("KontaktPage.qml"))
-            }
-            MenuItem {
-                text: ("Impressum")
-                onClicked: pageStack.push(Qt.resolvedUrl("ImpressumPage.qml"))
-            }
+        PageHeader {
+            title: "Über"
+        }
+        Text {
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: 480
+            text: "Tagesschau für Sailfish OS\n alpha1"
+            color: Theme.highlightColor
+        }
+        GlassItem {
+            height: Theme.paddingLarge
+            width: parent.width
+            color: Theme.highlightColor
         }
 
-        Column {
-            id: column
-            width: aboutPage.width
+        Text {
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: 480
+            wrapMode: Text.WordWrap
+            text: "Diese Version der Tagesschau App wurde durch Reverse Engineering der Tagesschau API entstanden. Die Applikation wurde mit QML und C++ erzeugt."
+            color: Theme.highlightColor
+        }
+        SectionHeader {
+            text: "Lizenz"
+        }
+        Text {
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: 4800
+            wrapMode: Text.WordWrap
+            text: "Dieses Program wurde unter der WTFPL veröffentlicht."
+            color: Theme.highlightColor
+        }
+        Button {
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: 300
+            text: "Mehr über die WTFPL Lizenz"
+            color: Theme.highlightColor
+            onClicked: { Qt.openUrlExternally("http://www.wtfpl.net/txt/copying/")
+            }
+        }
+        SectionHeader {
+            text: "Quelltext"
+        }
 
-            PageHeader {
-                title: "Über"
-            }
-            Text {
-                anchors.horizontalCenter: parent.horizontalCenter
-                width: 500
-                text: "Tagesschau für Sailfish OS\n alpha1"
-                color: Theme.highlightColor
-            }
-            GlassItem {
-               height: Theme.paddingLarge
-               width: parent.width
-               color: Theme.highlightColor
-            }
-
-            Text {
-                anchors.horizontalCenter: parent.horizontalCenter
-                width: 500
-                wrapMode: Text.WordWrap
-                text: "Diese Version der Tagesschau App wurde durch Reverse Engineering der Tagesschau API entstanden. Die Applikation wurde mit QML und C++ erzeugt."
-                color: Theme.highlightColor
-            }
-            SectionHeader {
-                text: "Lizenz"
-            }
-            Text {
-                anchors.horizontalCenter: parent.horizontalCenter
-                width: 500
-                wrapMode: Text.WordWrap
-                text: "Dieses Program wurde unter der WTFPL veröffentlicht."
-                color: Theme.highlightColor
-            }
-            Button {
-                anchors.horizontalCenter: parent.horizontalCenter
-                width: 300
-                text: "Mehr über die WTFPL Lizenz"
-                color: Theme.highlightColor
-                onClicked: { Qt.openUrlExternally("http://www.wtfpl.net/txt/copying/")
-                }
-            }
-            SectionHeader {
-                text: "Quelltext"
-            }
-
-            Label {
-                anchors.horizontalCenter: parent.horizontalCenter
-                width: 500
-                text: "http://github.com/"
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: { Qt.openUrlExternally("http://github.com/")
-                    }
+        Label {
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: 480
+            text: "https://github.com/Nokius/harbour-tagesschau"
+            color: Theme.secondaryColor
+            MouseArea {
+                anchors.fill: parent
+                onClicked: { Qt.openUrlExternally("https://github.com/Nokius/harbour-tagesschau")
                 }
             }
         }

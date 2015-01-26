@@ -35,7 +35,7 @@ Page {
 
         PullDownMenu {
             MenuItem {
-                text: "Update"
+                text: "Ak­tu­a­li­sie­ren"
                 onClicked: {
                     request('http://www.tagesschau.de/api/impressum/mobileappimpressum100.json', function (o) {
 
@@ -65,7 +65,7 @@ Page {
         Text {
             id: impressumLabel
             anchors.horizontalCenter: parent.horizontalCenter
-            width: 500
+            width: 480
             wrapMode: Text.WordWrap
             text: ""
             color: Theme.highlightColor
