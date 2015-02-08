@@ -1,7 +1,12 @@
 harbour-tagesschau
+=====
 
-Das ist eine aplha für eine native tageschau Appliation für SailfishOS.
+Das ist eine aplha für eine native Tageschau Appliation für SailfishOS.
 
 TODO
-Json parting 
-....
+Json parsing ^-^
+Felder für die Json Inhalte
+bug fixing
+
+Done
+80% GUI
