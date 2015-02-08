@@ -39,7 +39,7 @@ Page {
                 onClicked: {
                     request('http://www.tagesschau.de/api/impressum/mobileappimpressum100.json', function (o) {
 
-                        //log hte json
+                        //log get json
                         console.log(o.responseText);
 
                         //transalte response into object
@@ -51,11 +51,10 @@ Page {
                 }
             }
         }
-
-        contentHeight: column.height
+        contentHeight: impressumColumn.height
 
         Column {
-            id: column
+            id: impressumColumn
             width: impressumPage.width
 
             PageHeader {

@@ -27,15 +27,27 @@ import Sailfish.Silica 1.0
 Page {
     id: videoPage
 
-    Column {
-        id: column
-        width: videoPage.width
+    SilicaFlickable {
+        anchors.fill: parent
 
-        PageHeader {
-            title: "Video"
+        PullDownMenu {
+            MenuItem {
+                text: "Aktualisieren"
+                //TODO
+            }
         }
-        Label {
-            text: "TODO"
+        contentHeight: videoColumn
+
+        Column {
+            id: videoColumn
+            width: videoPage.width
+
+            PageHeader {
+                title: "Video"
+            }
+            Label {
+                text: "TODO"
+            }
         }
     }
 }

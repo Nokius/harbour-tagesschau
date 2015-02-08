@@ -27,15 +27,27 @@ import Sailfish.Silica 1.0
 Page {
     id: auslandPage
 
-    Column {
-        id: column
-        width: auslandPage.width
+    SilicaFlickable {
+        anchors.fill: parent
 
-        PageHeader {
-            title: "Ausland"
+        PullDownMenu {
+            MenuItem {
+                text: "Aktualisieren"
+                //TODO
+            }
         }
-        Label {
-            text: "TODO\n get http://www.tagesschau.de/api/ausland/"
+        contentHeight: auslandColumn.height
+
+        Column {
+            id: auslandColumn
+            width: auslandPage.width
+
+            PageHeader {
+                title: "Ausland"
+            }
+            Label {
+                text: "TODO\n get http://www.tagesschau.de/api/ausland/"
+            }
         }
     }
 }

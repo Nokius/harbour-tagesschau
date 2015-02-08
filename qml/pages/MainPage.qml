@@ -41,10 +41,10 @@ Page {
             }
         }
 
-        contentHeight: column.height
+        contentHeight: mainColumn.height
 
         Column {
-            id: column
+            id: mainColumn
             width: mainPage.width
 
             PageHeader {

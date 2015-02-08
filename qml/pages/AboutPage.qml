@@ -27,67 +27,106 @@ import Sailfish.Silica 1.0
 Page {
     id: aboutPage
 
-    Column {
-        id: column
-        width: aboutPage.width
+    SilicaFlickable {
+        id: aboutPageFlickable
+        anchors.fill: parent
+        contentHeight: aboutColumn.height
 
-        PageHeader {
-            title: "Über"
-        }
-        Text {
-            anchors {
-                left: parent.left
-                right: parent.right
-                margins: Theme.paddingLarge
+        Column {
+            id: aboutColumn
+            width: aboutPage.width
+
+            PageHeader {
+                title: "Über"
             }
-            text: "Tagesschau für Sailfish OS\n alpha1"
-            color: Theme.highlightColor
-        }
-        GlassItem {
-            height: Theme.paddingLarge
-            width: parent.width
-            color: Theme.highlightColor
-        }
-
-        Text {
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: 480
-            wrapMode: Text.WordWrap
-            text: "Diese Version der Tagesschau App wurde durch Reverse Engineering der Tagesschau API entstanden. Die Applikation wurde mit QML und C++ erzeugt."
-            color: Theme.highlightColor
-        }
-        SectionHeader {
-            text: "Lizenz"
-        }
-        Text {
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: 480
-            wrapMode: Text.WordWrap
-            text: "Dieses Program wurde unter der WTFPL veröffentlicht."
-            color: Theme.highlightColor
-        }
-        Button {
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: 300
-            text: "Mehr über die WTFPL Lizenz"
-            color: Theme.highlightColor
-            onClicked: { Qt.openUrlExternally("http://www.wtfpl.net/txt/copying/")
+            Text {
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                    margins: Theme.paddingLarge
+                }
+                text: "Tagesschau für Sailfish OS\n alpha1"
+                color: Theme.highlightColor
             }
-        }
-        SectionHeader {
-            text: "Quelltext"
-        }
+            GlassItem {
+                height: Theme.paddingLarge
+                width: parent.width
+                color: Theme.highlightColor
+            }
 
-        Label {
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: 480
-            text: "https://github.com/Nokius/harbour-tagesschau"
-            color: Theme.secondaryColor
-            MouseArea {
-                anchors.fill: parent
+            Text {
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 480
+                wrapMode: Text.WordWrap
+                text: "Diese Version der Tagesschau App wurde durch Reverse Engineering der Tagesschau API entwickelt. Die Applikation wurde mit QML erzeugt."
+                color: Theme.highlightColor
+            }
+            SectionHeader {
+                text: "Dank"
+            }
+            Text {
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 480
+                wrapMode: Text.WordWrap
+                text: "An dieser Stelle besten Dank an Coderus, faniel und M4rtinK für Ihre Hilfe."
+                color: Theme.highlightColor
+            }
+
+            SectionHeader {
+                text: "Lizenz"
+            }
+            Text {
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 480
+                wrapMode: Text.WordWrap
+                text: "Dieses Program wurde unter der WTFPL veröffentlicht."
+                color: Theme.highlightColor
+            }
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 300
+                text: "Mehr über die WTFPL Lizenz"
+                color: Theme.highlightColor
+                onClicked: { Qt.openUrlExternally("http://www.wtfpl.net/")
+                }
+            }
+            SectionHeader {
+                text: "Quelltext"
+            }
+
+            Label {
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 480
+                text: "Den Quellcode finden Sie auf Github"
+                color: Theme.highlightColor
+            }
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 300
+                text: "Mehr auf Github"
+                color: Theme.highlightColor
                 onClicked: { Qt.openUrlExternally("https://github.com/Nokius/harbour-tagesschau")
+                }
+            }
+            SectionHeader {
+                text: "Icons"
+            }
+            Text {
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 480
+                wrapMode: Text.WordWrap
+                text: "Die verwendeten Icons stammen aus dem The Noun Project."
+                color: Theme.highlightColor
+            }
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 300
+                text: "Mehr über das The Noun Project"
+                color: Theme.highlightColor
+                onClicked: { Qt.openUrlExternally("http://thenounproject.com/about/")
                 }
             }
         }
     }
+    VerticalScrollDecorator { flickable: aboutPageFlickable }
 }

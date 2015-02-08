@@ -22,6 +22,7 @@ as published by Sam Hocevar. See below for more details.
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import QtGraphicalEffects 1.0
 
 Page {
     id: ueberPage
@@ -37,18 +38,18 @@ Page {
 
      ListModel {
          id: menuModel
-         ListElement { name: "Inland"; icon: "images/inland.png"; page: "InlandPage.qml" }
-         ListElement { name: "Ausland"; icon: "images/ausland.png"; page: "AuslandPage.qml" }
-         ListElement { name: "Wirtschaft"; icon: "images/wirtschaft.png"; page: "WirtschaftPage.qml" }
-         ListElement { name: "Regional"; icon: "images/regional.png"; page: "RegionalPage.qml" }
-         ListElement { name: "Wetter"; icon: "images/wetter.png"; page: "WetterPage.qml" }
-         ListElement { name: "Kultur"; icon: "images/kultur.png"; page: "KulturPage.qml" }
-         ListElement { name: "Video"; icon: "images/video.png"; page: "VideoPage.qml" }
-         ListElement { name: "Audio"; icon: "images/audio.png"; page: "AudioPage.qml" }
-         ListElement { name: "Bilder"; icon: "images/bilder.png"; page: "BilderPage.qml" }
-         ListElement { name: "Impressum"; icon: "images/impressum.png"; page: "ImpressumPage.qml" }
-         ListElement { name: "Über"; icon: "images/ueber.png"; page: "AboutPage.qml" }
-         ListElement { name: "Kontakt"; icon: "images/kontakt.png"; page: "KontaktPage.qml" }
+         ListElement { name: "Inland"; icon: "images/inland.svg"; page: "InlandPage.qml" }
+         ListElement { name: "Ausland"; icon: "images/ausland.svg"; page: "AuslandPage.qml" }
+         ListElement { name: "Wirtschaft"; icon: "images/wirtschaft.svg"; page: "WirtschaftPage.qml" }
+         ListElement { name: "Regional"; icon: "images/regional.svg"; page: "RegionalPage.qml" }
+         ListElement { name: "Wetter"; icon: "images/wetter.svg"; page: "WetterPage.qml" }
+         ListElement { name: "Kultur"; icon: "images/kultur.svg"; page: "KulturPage.qml" }
+         ListElement { name: "Video"; icon: "images/video.svg"; page: "VideoPage.qml" }
+         ListElement { name: "Audio"; icon: "images/audio.svg"; page: "AudioPage.qml" }
+         ListElement { name: "Bilder"; icon: "images/bilder.svg"; page: "BilderPage.qml" }
+         ListElement { name: "Impressum"; icon: "images/impressum.svg"; page: "ImpressumPage.qml" }
+         ListElement { name: "Über"; icon: "images/ueber.svg"; page: "AboutPage.qml" }
+         ListElement { name: "Kontakt"; icon: "images/kontakt.svg"; page: "KontaktPage.qml" }
      }
 
      Component {
@@ -66,6 +67,12 @@ Page {
                  smooth: true
                  fillMode: Image.PreserveAspectFit
              }
+             ColorOverlay {
+                 anchors.fill: menuIcon
+                 source: menuIcon
+                 color: Theme.secondaryColor
+             }
+
              Text {
                  anchors { top: menuIcon.bottom; horizontalCenter: parent.horizontalCenter }
                  text: name

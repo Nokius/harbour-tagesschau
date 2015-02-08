@@ -27,15 +27,27 @@ import Sailfish.Silica 1.0
 Page {
     id: bilderPage
 
-    Column {
-        id: column
-        width: bilderPage.width
+    SilicaFlickable {
+        anchors.fill: parent
 
-        PageHeader {
-            title: "Bilder"
+        PullDownMenu {
+            MenuItem {
+                text: "Aktualisieren"
+                //TODO
+            }
         }
-        Label {
-            text: "TODO"
+        contentHeight: bilderColumn.height
+
+        Column {
+            id: bilderColumn
+            width: bilderPage.width
+
+            PageHeader {
+                title: "Bilder"
+            }
+            Label {
+                text: "TODO"
+            }
         }
     }
 }

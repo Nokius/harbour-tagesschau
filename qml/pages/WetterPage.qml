@@ -27,15 +27,27 @@ import Sailfish.Silica 1.0
 Page {
     id: wetterPage
 
-    Column {
-        id: column
-        width: wetterPage.width
+    SilicaFlickable {
+        anchors.fill: parent
 
-        PageHeader {
-            title: "Wetter"
+        PullDownMenu {
+            MenuItem {
+                text: "Aktualisieren"
+                //TODO
+            }
         }
-        Label {
-            text: "TODO\n get request http://wetter.tagesschau.de/api/v1/wetter-rubrik.json"
+        contentHeight: wetterColumn
+
+        Column {
+            id: wetterColumn
+            width: wetterPage.width
+
+            PageHeader {
+                title: "Wetter"
+            }
+            Label {
+                text: "TODO\n get request http://wetter.tagesschau.de/api/v1/wetter-rubrik.json"
+            }
         }
     }
 }

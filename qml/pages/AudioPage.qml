@@ -27,15 +27,27 @@ import Sailfish.Silica 1.0
 Page {
     id: audioPage
 
-    Column {
-        id: column
-        width: audioPage.width
+    SilicaFlickable {
+        anchors.fill:parent
 
-        PageHeader {
-            title: "Audio"
+        PullDownMenu {
+            MenuItem {
+                text: "Aktualisieren"
+                //TODO
+            }
         }
-        Label {
-            text: "TODO"
+        contentHeight: audioColumn.height
+
+        Column {
+            id: audioColumn
+            width: audioPage.width
+
+            PageHeader {
+                title: "Audio"
+            }
+            Label {
+                text: "TODO"
+            }
         }
     }
 }

@@ -27,15 +27,27 @@ import Sailfish.Silica 1.0
 Page {
     id: kulturPage
 
-    Column {
-        id: column
-        width: kulturPage.width
+    SilicaFlickable {
+        anchors.fill: parent
 
-        PageHeader {
-            title: "Kultur"
+        PullDownMenu {
+            MenuItem {
+                text: "Aktualisieren"
+                //TODO
+            }
         }
-        Label {
-            text: "TODO\n http://www.tagesschau.de/api/multimedia/index-archive_type-culture_allDays-true.json"
+        contentHeight: kulturColumn.height
+
+        Column {
+            id: kulturColumn
+            width: kulturPage.width
+
+            PageHeader {
+                title: "Kultur"
+            }
+            Label {
+                text: "TODO\n http://www.tagesschau.de/api/multimedia/index-archive_type-culture_allDays-true.json"
+            }
         }
     }
 }

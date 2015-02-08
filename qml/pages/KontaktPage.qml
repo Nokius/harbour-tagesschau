@@ -28,7 +28,7 @@ Page {
     id: kontaktPage
 
     Column {
-        id: column
+        id: kontaktColumn
         width: kontaktPage.width
 
         PageHeader {
@@ -49,6 +49,7 @@ Page {
             width: 300
             text: "Email"
             onClicked: Qt.openUrlExternally("mailto:redaktion@tagesschau.de?subject=Bericht")
+            color: Theme.highlightColor
         }
     }
 }
