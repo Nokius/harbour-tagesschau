@@ -26,32 +26,50 @@ import Sailfish.Silica 1.0
 
 //"TODO get http://www.tagesschau.de/api/impressum/mobileappimpressum100.json"
 
-
 Page {
     id: impressumPage
 
+    function getData() {
+        var xmlhttp = new XMLHttpRequest();
+        var url =  "http://www.tagesschau.de/api/impressum/mobileappimpressum100.json";
+
+        xmlhttp.onreadystatechange=function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                praseFunction(xmlhttp.responseText);
+            }
+        }
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send();
+
+    }
+
+    function praseFunction(responseText) {
+        var impressum = JSON.parse(responseText);
+        ueberschriftText.text = impressum.copytext[0].text;
+        adresseText.text = impressum.copytext[1].text;
+        idnummerText.text = impressum.copytext[2].text;
+        infoText.text = impressum.copytext[3].text;
+        chefredaktionText.text = impressum.copytext[4].text;
+        kontaktText.text = impressum.copytext[5].text;
+        haftungshinweisText.text = impressum.copytext[6].text;
+        datenshutzText.text = impressum.copytext[7].text;
+    }
+
+    Component.onCompleted: {
+        getData()
+    }
+
     SilicaFlickable {
+        id: impressumPageFlickable
         anchors.fill: parent
+        contentHeight: impressumColumn.height
 
         PullDownMenu {
             MenuItem {
-                text: "Ak­tu­a­li­sie­ren"
-                onClicked: {
-                    request('http://www.tagesschau.de/api/impressum/mobileappimpressum100.json', function (o) {
-
-                        //log get json
-                        console.log(o.responseText);
-
-                        //transalte response into object
-                        var d = eval('new Object(' + o.responseText + ')');
-
-                        // access elements inside json object with dor notation
-                        impressumLabel.text = d.date
-                    });
-                }
+                text: "Aktualisieren"
+                onClicked: getData()
             }
         }
-        contentHeight: impressumColumn.height
 
         Column {
             id: impressumColumn
@@ -60,8 +78,71 @@ Page {
             PageHeader {
                 title: "Impressum"
             }
+
             Text {
-                id: impressumLabel
+                id: ueberschriftText
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 480
+                text: ""
+                color: Theme.secondaryColor
+            }
+
+            Text {
+                id: adresseText
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.topMargin: 10
+                width: 480
+                wrapMode: Text.WordWrap
+                text: ""
+                color: Theme.highlightColor
+            }
+
+            Text {
+                id: idnummerText
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 480
+                wrapMode: Text.WordWrap
+                text: ""
+                color: Theme.highlightColor
+            }
+
+            Text {
+                id: infoText
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 480
+                wrapMode: Text.WordWrap
+                text: ""
+                color: Theme.highlightColor
+            }
+
+            Text {
+                id: chefredaktionText
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 480
+                wrapMode: Text.WordWrap
+                text: ""
+                color: Theme.highlightColor
+            }
+
+            Text {
+                id: kontaktText
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 480
+                wrapMode: Text.WordWrap
+                text: ""
+                color: Theme.highlightColor
+            }
+
+            Text {
+                id: haftungshinweisText
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 480
+                wrapMode: Text.WordWrap
+                text: ""
+                color: Theme.highlightColor
+            }
+            Text {
+                id: datenshutzText
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: 480
                 wrapMode: Text.WordWrap
@@ -69,15 +150,6 @@ Page {
                 color: Theme.highlightColor
             }
         }
-        function request(url, callback) {
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = (function(myxhr) {
-                return function() {
-                    callback(myxhr);
-                }
-            })(xhr);
-            xhr.open('GET', url, true);
-            xhr.send('');
-        }
     }
+    VerticalScrollDecorator { flickable: impressumPageFlickable }
 }

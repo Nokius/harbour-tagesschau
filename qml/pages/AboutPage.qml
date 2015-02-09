@@ -68,7 +68,7 @@ Page {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: 480
                 wrapMode: Text.WordWrap
-                text: "An dieser Stelle besten Dank an Coderus, faniel und M4rtinK für Ihre Hilfe."
+                text: "An dieser Stelle besten Dank an Coderus, faniel, M4rtinK und SK_works für Ihre Hilfe."
                 color: Theme.highlightColor
             }
 
