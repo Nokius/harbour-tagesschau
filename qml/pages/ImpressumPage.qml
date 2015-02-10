@@ -1,4 +1,4 @@
-/*
+﻿/*
                   Copyright (C) 2015 Nokius
 
 This work is free. You can redistribute it and/or modify it under the
@@ -24,7 +24,10 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 
-//"TODO get http://www.tagesschau.de/api/impressum/mobileappimpressum100.json"
+/*TODO:
+  Feedbackmail Button
+  Datenshutzerklärung
+  */
 
 Page {
     id: impressumPage
@@ -40,11 +43,11 @@ Page {
         }
         xmlhttp.open("GET", url, true);
         xmlhttp.send();
-
     }
 
     function praseFunction(responseText) {
         var impressum = JSON.parse(responseText);
+
         ueberschriftText.text = impressum.copytext[0].text;
         adresseText.text = impressum.copytext[1].text;
         idnummerText.text = impressum.copytext[2].text;
@@ -52,7 +55,7 @@ Page {
         chefredaktionText.text = impressum.copytext[4].text;
         kontaktText.text = impressum.copytext[5].text;
         haftungshinweisText.text = impressum.copytext[6].text;
-        datenshutzText.text = impressum.copytext[7].text;
+        datenschutzText.text = impressum.copytext[7].text;
     }
 
     Component.onCompleted: {
@@ -74,6 +77,7 @@ Page {
         Column {
             id: impressumColumn
             width: impressumPage.width
+            spacing: 15
 
             PageHeader {
                 title: "Impressum"
@@ -83,6 +87,7 @@ Page {
                 id: ueberschriftText
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: 480
+                font.bold: true
                 text: ""
                 color: Theme.secondaryColor
             }
@@ -90,7 +95,6 @@ Page {
             Text {
                 id: adresseText
                 anchors.horizontalCenter: parent.horizontalCenter
-                anchors.topMargin: 10
                 width: 480
                 wrapMode: Text.WordWrap
                 text: ""
@@ -142,11 +146,19 @@ Page {
                 color: Theme.highlightColor
             }
             Text {
-                id: datenshutzText
+                id: datenschutzText
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: 480
                 wrapMode: Text.WordWrap
                 text: ""
+                color: Theme.highlightColor
+            }
+            Button {
+                id: datenshutzButton
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 300
+                text: "Datenschutzerklärung"
+                onClicked: pageStack.push(Qt.resolvedUrl("DatenschutzPage.qml"))
                 color: Theme.highlightColor
             }
         }

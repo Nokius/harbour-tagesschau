@@ -30,6 +30,7 @@ Page {
     Column {
         id: kontaktColumn
         width: kontaktPage.width
+        spacing: 15
 
         PageHeader {
             title: "Kontakt"
@@ -45,6 +46,7 @@ Page {
             color: Theme.highlightColor
         }
         Button {
+            id: kontaktButton
             anchors.horizontalCenter: parent.horizontalCenter
             width: 300
             text: "Email"

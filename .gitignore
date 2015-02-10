@@ -38,3 +38,6 @@ Makefile*
 
 #Final packages
 RPMS/*
+
+# .list files
+*.list
