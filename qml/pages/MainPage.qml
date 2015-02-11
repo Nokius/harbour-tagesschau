@@ -27,8 +27,36 @@ import Sailfish.Silica 1.0
 Page {
     id: mainPage
 
+    function getData() {
+        var xmlhttp = new XMLHttpRequest();
+        var url = "http://www.tagesschau.de/api/index.json";
+
+        xmlhttp.onreadystatechange=function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                praseFunction(xmlhttp.responseText);
+            }
+        }
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send();
+    }
+
+    function praseFunction(responseText) {
+        var ueberblick = JSON.parse(responseText);
+
+        topstory0Image.source = ueberblick.topstories[0].images[0].variants[6].gross16x9;
+        debugLabel.text = ueberblick.topstories[0].images[0].variants[6].gross16x9;
+        //debugLabel.text = ueberblick.topstories[0].details;
+
+    }
+
+    Component.onCompleted: {
+        getData()
+    }
+
     SilicaFlickable {
+        id: ueberblickPageFlickable
         anchors.fill: parent
+        contentHeight: mainColumn.height
 
         PullDownMenu {
             MenuItem {
@@ -37,11 +65,9 @@ Page {
             }
             MenuItem {
                 text: ("Ak­tu­a­li­sie­ren")
-                //onClicked: pageStack.push(Qt.resolvedUrl("AuslandPage.qml"))
+                onClicked: getData()
             }
         }
-
-        contentHeight: mainColumn.height
 
         Column {
             id: mainColumn
@@ -50,11 +76,23 @@ Page {
             PageHeader {
                 title: ("Nachrichtenüberblick")
             }
-            Label {
-                text: ("TODO\n get request http://www.tagesschau.de/api/")
+
+            /*Label {
+                id: debugLabel
+                text: ""
+            }*/
+
+            Image {
+                id: topstory0Image
+                anchors.horizontalCenter: parent.horizontalCenter
+                source: ""
+                width: 480
+                smooth: true
+                fillMode: Image.PreserveAspectFit
             }
         }
     }
+    VerticalScrollDecorator { flickable: ueberblickPageFlickable }
 }
 
 

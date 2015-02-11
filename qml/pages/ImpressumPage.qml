@@ -25,8 +25,9 @@ import Sailfish.Silica 1.0
 
 
 /*TODO:
-  Feedbackmail Button
-  Datenshutzerklärung
+  Button Datenschuterklaerung vertecken
+  Aktualisieren testen!
+  die ID los werden in der mail
   */
 
 Page {
@@ -34,7 +35,7 @@ Page {
 
     function getData() {
         var xmlhttp = new XMLHttpRequest();
-        var url =  "http://www.tagesschau.de/api/impressum/mobileappimpressum100.json";
+        var url = "http://www.tagesschau.de/api/impressum/mobileappimpressum100.json";
 
         xmlhttp.onreadystatechange=function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -160,6 +161,7 @@ Page {
                 text: "Datenschutzerklärung"
                 onClicked: pageStack.push(Qt.resolvedUrl("DatenschutzPage.qml"))
                 color: Theme.highlightColor
+                visible: ueberschriftText.text.length > 0
             }
         }
     }
