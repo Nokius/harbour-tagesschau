@@ -38,6 +38,7 @@ OTHER_FILES += qml/harbour-tagesschau.qml \
     qml/pages/VideoPage.qml \
     qml/pages/AudioPage.qml \
     qml/pages/BilderPage.qml \
-    qml/pages/DatenschutzPage.qml
+    qml/pages/DatenschutzPage.qml \
+    qml/pages/DetailsPage.qml
 
 

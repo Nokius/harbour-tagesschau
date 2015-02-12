@@ -43,9 +43,18 @@ Page {
     function praseFunction(responseText) {
         var ueberblick = JSON.parse(responseText);
 
-        topstory0Image.source = ueberblick.topstories[0].images[0].variants[6].gross16x9;
-        debugLabel.text = ueberblick.topstories[0].images[0].variants[6].gross16x9;
-        //debugLabel.text = ueberblick.topstories[0].details;
+        if (ueberblick.breakingnews > 0) {
+
+            breakingnewsHeader.text = ueberblick.breakingnews[0].topline;
+            breakingnewsHeadline.text = ueberblick.breakingnews[0].headline;
+            breakingnewsText.text = ueberblick.breakingnews[0].headline;
+        }
+
+        topstoriesheadlineText.text = ueberblick.topstories[0].shortheadline;
+        topstoriesshorttextText.text = ueberblick.topstories[0].shorttext;
+        topstoriesImage.source = ueberblick.topstories[0].images[0].variants[6].gross16x9;
+
+        //debugLabel.text = ueberblick.topstories[0].images[0].variants[6].gross16x9;
 
     }
 
@@ -72,6 +81,7 @@ Page {
         Column {
             id: mainColumn
             width: mainPage.width
+            spacing: 20
 
             PageHeader {
                 title: ("Nachrichtenüberblick")
@@ -82,17 +92,87 @@ Page {
                 text: ""
             }*/
 
-            Image {
-                id: topstory0Image
+            // untested Eilmeldung
+
+            Column {
+                id: eilmeldungColumn
                 anchors.horizontalCenter: parent.horizontalCenter
-                source: ""
                 width: 480
-                smooth: true
-                fillMode: Image.PreserveAspectFit
+                spacing: 10
+                //color: "red"
+                //opacity: 0.5
+                visible: breakingnewsHeader.text > 0
+
+                 Text {
+                    id: breakingnewsHeader
+                    anchors.right: parent.right
+                    anchors.leftMargin: 20
+                    font.pixelSize: Theme.fontSizeSmall
+                    font.bold: true
+                    text: ""
+                }
+
+                Text {
+                    id: breakingnewsHeadline
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    width: 480
+                    wrapMode: Text.WordWrap
+                    text: ""
+                    color: Theme.highlightColor
+                }
+
+                Text {
+                   id: breackingnewsText
+                   anchors.horizontalCenter: parent.horizontalCenter
+                   width: 480
+                   wrapMode: Text.WordWrap
+                   text: ""
+                   color: Theme.highlightColor
+                }
+            }
+
+            Column  {
+                id: topstoriesColum
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 480
+                spacing: 10
+
+                Image {
+                    id: topstoriesImage
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    source: ""
+                    width: 480
+                    smooth: true
+                    fillMode: Image.PreserveAspectFit
+                }
+
+                Text {
+                    id: topstoriesheadlineText
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    width: 480
+                    wrapMode: Text.WordWrap
+                    font.bold: true
+                    text: ""
+                    color: Theme.highlightColor
+                }
+
+                Text {
+                    id: topstoriesshorttextText
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    width: 480
+                    wrapMode: Text.WordWrap
+                    text: ""
+                    color: Theme.highlightColor
+
+                    MouseArea {
+                        id: topstoriesPage
+                        anchors.fill: parent
+                        onClicked: pageStack.push(Qt.resolvedUrl("DetailsPage.qml"))
+                    }
+                }
             }
         }
+        VerticalScrollDecorator { flickable: ueberblickPageFlickable }
     }
-    VerticalScrollDecorator { flickable: ueberblickPageFlickable }
 }
-
 
