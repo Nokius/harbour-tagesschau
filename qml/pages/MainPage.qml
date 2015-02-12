@@ -54,6 +54,10 @@ Page {
         topstoriesshorttextText.text = ueberblick.topstories[0].shorttext;
         topstoriesImage.source = ueberblick.topstories[0].images[0].variants[6].gross16x9;
 
+        // varialbe for the DetailsPage
+
+        var topstoriesdetails = ueberblick.topstories[0].details;
+
         //debugLabel.text = ueberblick.topstories[0].images[0].variants[6].gross16x9;
 
     }
@@ -168,6 +172,7 @@ Page {
                         id: topstoriesPage
                         anchors.fill: parent
                         onClicked: pageStack.push(Qt.resolvedUrl("DetailsPage.qml"))
+                        // "send" var topstoriesdetails to DetailsPage
                     }
                 }
             }
