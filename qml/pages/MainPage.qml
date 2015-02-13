@@ -29,6 +29,7 @@ Page {
 
     function getData() {
         var xmlhttp = new XMLHttpRequest();
+        //var url = "https://gist.githubusercontent.com/Nokius/ca6d9cba70ca94deb309/raw/0ef81123de32a0e4974a7cf2c4a48c99a6294c38/gistfile1.txt"
         var url = "http://www.tagesschau.de/api/index.json";
 
         xmlhttp.onreadystatechange=function() {
@@ -43,22 +44,22 @@ Page {
     function praseFunction(responseText) {
         var ueberblick = JSON.parse(responseText);
 
-        if (ueberblick.breakingnews > 0) {
-
+        // check size of the array
+        if (ueberblick.breakingnews.length > 0) {
             breakingnewsHeader.text = ueberblick.breakingnews[0].topline;
             breakingnewsHeadline.text = ueberblick.breakingnews[0].headline;
-            breakingnewsText.text = ueberblick.breakingnews[0].headline;
+            breakingnewsText.text = ueberblick.breakingnews[0].shorttext;
         }
 
         topstoriesheadlineText.text = ueberblick.topstories[0].shortheadline;
         topstoriesshorttextText.text = ueberblick.topstories[0].shorttext;
         topstoriesImage.source = ueberblick.topstories[0].images[0].variants[6].gross16x9;
+        if (ueberblick.topstories[0].multimedia-buttons[0].type == audio) {
+            topstoriesaudioLabel.text = ueberblick.topstories[0].headline;
+        }
 
         // varialbe for the DetailsPage
-
-        var topstoriesdetails = ueberblick.topstories[0].details;
-
-        //debugLabel.text = ueberblick.topstories[0].images[0].variants[6].gross16x9;
+        var  topstoriesdetails = ueberblick.topstories[0].details;
 
     }
 
@@ -85,56 +86,50 @@ Page {
         Column {
             id: mainColumn
             width: mainPage.width
-            spacing: 20
+            //spacing: 20
 
             PageHeader {
+                id: ueberblickPageHeader
                 title: ("Nachrichtenüberblick")
             }
 
-            /*Label {
-                id: debugLabel
-                text: ""
-            }*/
-
-            // untested Eilmeldung
-
+            // Eilmeldung
             Column {
                 id: eilmeldungColumn
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: 480
                 spacing: 10
-                //color: "red"
-                //opacity: 0.5
-                visible: breakingnewsHeader.text > 0
+                visible: breakingnewsHeader.text.length > 0
 
-                 Text {
+                 SectionHeader {
                     id: breakingnewsHeader
-                    anchors.right: parent.right
-                    anchors.leftMargin: 20
-                    font.pixelSize: Theme.fontSizeSmall
                     font.bold: true
-                    text: ""
-                }
-
-                Text {
-                    id: breakingnewsHeadline
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    width: 480
-                    wrapMode: Text.WordWrap
                     text: ""
                     color: Theme.highlightColor
                 }
 
                 Text {
-                   id: breackingnewsText
+                    id: breakingnewsHeadline
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    width: parent.width
+                    wrapMode: Text.WordWrap
+                    text: ""
+                    font.pixelSize: Theme.fontSizeMedium
+                    color: Theme.highlightColor
+                }
+
+                Text {
+                   id: breakingnewsText
                    anchors.horizontalCenter: parent.horizontalCenter
-                   width: 480
+                   width: parent.width
                    wrapMode: Text.WordWrap
                    text: ""
+                   font.pixelSize: Theme.fontSizeMedium
                    color: Theme.highlightColor
                 }
             }
 
+            // Topstories
             Column  {
                 id: topstoriesColum
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -145,7 +140,7 @@ Page {
                     id: topstoriesImage
                     anchors.horizontalCenter: parent.horizontalCenter
                     source: ""
-                    width: 480
+                    width: parent.width
                     smooth: true
                     fillMode: Image.PreserveAspectFit
                 }
@@ -153,26 +148,52 @@ Page {
                 Text {
                     id: topstoriesheadlineText
                     anchors.horizontalCenter: parent.horizontalCenter
-                    width: 480
+                    width: parent.width
                     wrapMode: Text.WordWrap
                     font.bold: true
                     text: ""
+                    font.pixelSize: Theme.fontSizeMedium
                     color: Theme.highlightColor
                 }
 
                 Text {
                     id: topstoriesshorttextText
                     anchors.horizontalCenter: parent.horizontalCenter
-                    width: 480
+                    width: parent.width
                     wrapMode: Text.WordWrap
                     text: ""
+                    font.pixelSize: Theme.fontSizeMedium
                     color: Theme.highlightColor
 
                     MouseArea {
                         id: topstoriesPage
                         anchors.fill: parent
                         onClicked: pageStack.push(Qt.resolvedUrl("DetailsPage.qml"))
-                        // "send" var topstoriesdetails to DetailsPage
+                    }
+                }
+
+                Rectangle {
+                    id:topstoriesaudio
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    width: parent.width
+                    height: children.height
+                    color: "transparent"
+                    visible: topstoriesaudioLabel.text.length > 0
+
+                    Image {
+                        id: topstoriesaudioIcon
+                        anchors.left: topstoriesaudioLabel.right
+                        source: "images/audio.svg"
+                        smooth: true
+                        fillMode: Image.PreserveAspectFit
+                    }
+
+                    Label {
+                        id: topstoriesaudioLabel
+                        width: text.width
+                        wrapMode: Text.WordWrap
+                        text: ""
+                        font.bold: true
                     }
                 }
             }

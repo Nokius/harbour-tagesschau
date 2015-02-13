@@ -29,7 +29,7 @@ Page {
 
     function getData() {
         var xmlhttp = new XMLHttpRequest();
-        //var url = "http://www.tagesschau.de/api/index.json";
+        var url = "http://www.tagesschau.de/api/index.json";
 
         xmlhttp.onreadystatechange=function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -54,13 +54,13 @@ Page {
     SilicaFlickable {
         id: detailsPageFlickable
         anchors.fill: parent
-        contentHeight: mainColumn.height
+        contentHeight: detailsColumn.height
 
         }
 
         Column {
             id: detailsColumn
-            width: mainPage.width
+            width: detailsPage.width
 
             PageHeader {
                 title: ("")
