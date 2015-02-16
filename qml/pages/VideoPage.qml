@@ -25,7 +25,7 @@ import Sailfish.Silica 1.0
 
 
 Page {
-    id: kulturPage
+    id: videoPage
 
     SilicaFlickable {
         anchors.fill: parent
@@ -36,17 +36,17 @@ Page {
                 //TODO
             }
         }
-        contentHeight: kulturColumn.height
+        contentHeight: videoColumn
 
         Column {
-            id: kulturColumn
-            width: kulturPage.width
+            id: videoColumn
+            width: videoPage.width
 
             PageHeader {
-                title: "Kultur"
+                title: "Video"
             }
             Label {
-                text: "TODO\n http://www.tagesschau.de/api/multimedia/index-archive_type-culture_allDays-true.json"
+                text: "TODO"
             }
         }
     }

@@ -28,24 +28,30 @@ Page {
     id: kontaktPage
 
     Column {
-        id: column
+        id: kontaktColumn
         width: kontaktPage.width
+        spacing: 15
 
         PageHeader {
             title: "Kontakt"
         }
         Text {
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: 500
+            anchors {
+                left: parent.left
+                right: parent.right
+                margins: Theme.paddingLarge
+            }
             wrapMode: Text.WordWrap
             text: "Hier können Sie Kontakt mit der Tagesschau aufnehmen, um zu bereichten, was Sie gesehen oder erlebt haben. An die E-Mail können Sie zudem auch ein eigenes Foto oder Video anhängen:"
             color: Theme.highlightColor
         }
         Button {
+            id: kontaktButton
             anchors.horizontalCenter: parent.horizontalCenter
             width: 300
             text: "Email"
             onClicked: Qt.openUrlExternally("mailto:redaktion@tagesschau.de?subject=Bericht")
+            color: Theme.highlightColor
         }
     }
 }

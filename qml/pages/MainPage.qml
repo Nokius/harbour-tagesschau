@@ -22,59 +22,107 @@ as published by Sam Hocevar. See below for more details.
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-
+import QtGraphicalEffects 1.0
 
 Page {
-    id: mainPage
+    id: ueberblickPage
 
-    SilicaFlickable {
-        anchors.fill: parent
+    property var ueberblick
 
-        PullDownMenu {
-            MenuItem {
-                text: ("Über")
-                onClicked: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
-            }
-            MenuItem {
-                text: ("Wetter")
-                onClicked: pageStack.push(Qt.resolvedUrl("WetterPage.qml"))
-            }
-            MenuItem {
-                text: ("Kultur")
-                onClicked: pageStack.push(Qt.resolvedUrl("KulturPage.qml"))
-            }
-            MenuItem {
-                text: ("Regional")
-                onClicked: pageStack.push(Qt.resolvedUrl("RegionalPage.qml"))
-            }
-            MenuItem {
-                text: ("Wirtschaft")
-                onClicked: pageStack.push(Qt.resolvedUrl("WirtschaftPage.qml"))
-            }
-            MenuItem {
-                text: ("Ausland")
-                onClicked: pageStack.push(Qt.resolvedUrl("AuslandPage.qml"))
-            }
-            MenuItem {
-                text: ("Inland")
-                onClicked: pageStack.push(Qt.resolvedUrl("InlandPage.qml"))
+    function getData() {
+        var xmlhttp = new XMLHttpRequest();
+        var url = "http://www.tagesschau.de/api/index.json";
+
+        xmlhttp.onreadystatechange=function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                parseFunction(xmlhttp.responseText);
             }
         }
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send();
+    }
 
-        contentHeight: column.height
+    function parseFunction(responseText) {
+        ueberblick = JSON.parse(responseText);
+    }
 
-        Column {
-            id: column
-            width: mainPage.width
+    Component.onCompleted: {
+        getData()
+    }
+
+    Component {
+        id: ueberblickListComponent
+
+        Label {
+            anchors {
+                left:  parent.left
+                right: parent.right
+                margins: Theme.paddingLarge
+            }
+
+            wrapMode: Text.WordWrap
+            horizontalAlignment: Text.AlignCenter
+            text: modelData.shorttext
+            color: Theme.secondaryColor
+        }
+    }
+
+    SilicaListView {
+        id: ueberblickListView
+        anchors.fill: ueberblickPage
+        model: ueberblick.teaser
+        delegate: ueberblickListComponent
+        header: Column {
+            id: ueberblickColumn
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width
 
             PageHeader {
-                title: ("Nachrichtenüberblick")
+                id: ueberblickPageHeader
+                title: "Nachrichtenüberblick"
             }
-            Label {
-                text: ("TODO\n get request http://www.tagesschau.de/api/")
+
+            Column {
+                id: ueberblickTopstoriesColumn
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 480
+                spacing: 10
+
+                Image {
+                    id: ueberblickTopstoriesImage
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    width: parent.width
+                    source: ueberblick.topstories[0].images[0].variants[6].gross16x9
+                    smooth: true
+                    fillMode: Image.PreserveAspectFit
+                }
+
+                Text {
+                    id: ueberblickTopstoriesHeadline
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    width: parent.width
+                    wrapMode: Text.WordWrap
+                    font.bold: true
+                    text: ueberblick.topstories[0].shortheadline
+                    color: Theme.highlightColor
+                }
+
+                Text {
+                    id: uberblickTopstoriesHeadline
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    width: parent.width
+                    wrapMode: Text.WordWrap
+                    text: ueberblick.topstories[0].shorttext
+                    color: Theme.secondaryColor
+                    /* MouseArea {
+                  id: ueberblicktopstoriesMouseArea
+                  anchors.fill: parent
+                  onClicked: pageStacke.push(Qt.resolvedUrl("DetailsPage.qml)
+                  }*/
+                }
             }
         }
     }
+    VerticalScrollDecorator { flickable: ueberblickListView }
 }
-
 

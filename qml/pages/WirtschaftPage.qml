@@ -27,15 +27,27 @@ import Sailfish.Silica 1.0
 Page {
     id: wirtschaftPage
 
-    Column {
-        id: column
-        width: wirtschaftPage.width
+    SilicaFlickable {
+        anchors.fill: parent
 
-        PageHeader {
-            title: "Wirtschaft"
+        PullDownMenu {
+            MenuItem {
+                text: "Aktualisieren"
+                //TODO
+            }
         }
-        Label {
-            text: "TODO\n get request http://www.tagesscahu.de/api/wirtschaft/"
+        contentHeight: wirtschaftColumn.height
+
+        Column {
+            id: wirtschaftColumn
+            width: wirtschaftPage.width
+
+            PageHeader {
+                title: "Wirtschaft"
+            }
+            Label {
+                text: "TODO\n get request http://www.tagesscahu.de/api/wirtschaft/"
+            }
         }
     }
 }

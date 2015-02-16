@@ -25,10 +25,10 @@ import Sailfish.Silica 1.0
 
 
 Page {
-    id: kulturPage
+    id: audioPage
 
     SilicaFlickable {
-        anchors.fill: parent
+        anchors.fill:parent
 
         PullDownMenu {
             MenuItem {
@@ -36,17 +36,17 @@ Page {
                 //TODO
             }
         }
-        contentHeight: kulturColumn.height
+        contentHeight: audioColumn.height
 
         Column {
-            id: kulturColumn
-            width: kulturPage.width
+            id: audioColumn
+            width: audioPage.width
 
             PageHeader {
-                title: "Kultur"
+                title: "Audio"
             }
             Label {
-                text: "TODO\n http://www.tagesschau.de/api/multimedia/index-archive_type-culture_allDays-true.json"
+                text: "TODO"
             }
         }
     }

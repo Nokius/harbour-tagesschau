@@ -28,51 +28,56 @@ Page {
     id: aboutPage
 
     SilicaFlickable {
+        id: aboutPageFlickable
         anchors.fill: parent
-
-        PullDownMenu {
-            MenuItem {
-                text: ("Kontakt")
-                onClicked: pageStack.push(Qt.resolvedUrl("KontaktPage.qml"))
-            }
-            MenuItem {
-                text: ("Impressum")
-                onClicked: pageStack.push(Qt.resolvedUrl("ImpressumPage.qml"))
-            }
-        }
+        contentHeight: aboutColumn.height
 
         Column {
-            id: column
+            id: aboutColumn
             width: aboutPage.width
 
             PageHeader {
                 title: "Über"
             }
             Text {
-                anchors.horizontalCenter: parent.horizontalCenter
-                width: 500
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                    margins: Theme.paddingLarge
+                }
                 text: "Tagesschau für Sailfish OS\n alpha1"
                 color: Theme.highlightColor
             }
             GlassItem {
-               height: Theme.paddingLarge
-               width: parent.width
-               color: Theme.highlightColor
+                height: Theme.paddingLarge
+                width: parent.width
+                color: Theme.highlightColor
             }
 
             Text {
                 anchors.horizontalCenter: parent.horizontalCenter
-                width: 500
+                width: 480
                 wrapMode: Text.WordWrap
-                text: "Diese Version der Tagesschau App wurde durch Reverse Engineering der Tagesschau API entstanden. Die Applikation wurde mit QML und C++ erzeugt."
+                text: "Diese Version der Tagesschau App wurde durch Reverse Engineering der Tagesschau API entwickelt. Die Applikation wurde mit QML erzeugt."
                 color: Theme.highlightColor
             }
+            SectionHeader {
+                text: "Dank"
+            }
+            Text {
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 480
+                wrapMode: Text.WordWrap
+                text: "An dieser Stelle besten Dank an Coderus, ejjoman, faniel, M4rtinK und SK_works für Ihre Hilfe."
+                color: Theme.highlightColor
+            }
+
             SectionHeader {
                 text: "Lizenz"
             }
             Text {
                 anchors.horizontalCenter: parent.horizontalCenter
-                width: 500
+                width: 480
                 wrapMode: Text.WordWrap
                 text: "Dieses Program wurde unter der WTFPL veröffentlicht."
                 color: Theme.highlightColor
@@ -82,7 +87,7 @@ Page {
                 width: 300
                 text: "Mehr über die WTFPL Lizenz"
                 color: Theme.highlightColor
-                onClicked: { Qt.openUrlExternally("http://www.wtfpl.net/txt/copying/")
+                onClicked: { Qt.openUrlExternally("http://www.wtfpl.net/")
                 }
             }
             SectionHeader {
@@ -91,14 +96,37 @@ Page {
 
             Label {
                 anchors.horizontalCenter: parent.horizontalCenter
-                width: 500
-                text: "http://github.com/"
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: { Qt.openUrlExternally("http://github.com/")
-                    }
+                width: 480
+                text: "Den Quellcode finden Sie auf Github"
+                color: Theme.highlightColor
+            }
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 300
+                text: "Mehr auf Github"
+                color: Theme.highlightColor
+                onClicked: { Qt.openUrlExternally("https://github.com/Nokius/harbour-tagesschau")
+                }
+            }
+            SectionHeader {
+                text: "Icons"
+            }
+            Text {
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 480
+                wrapMode: Text.WordWrap
+                text: "Die verwendeten Icons stammen aus dem The Noun Project."
+                color: Theme.highlightColor
+            }
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 300
+                text: "Mehr über das The Noun Project"
+                color: Theme.highlightColor
+                onClicked: { Qt.openUrlExternally("http://thenounproject.com/about/")
                 }
             }
         }
     }
+    VerticalScrollDecorator { flickable: aboutPageFlickable }
 }

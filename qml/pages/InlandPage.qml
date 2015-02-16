@@ -27,15 +27,27 @@ import Sailfish.Silica 1.0
 Page {
     id: inlandPage
 
-    Column {
-        id: column
-        width: inlandPage.width
+    SilicaFlickable {
+        anchors.fill: parent
 
-        PageHeader {
-            title: "Inland"
+        PullDownMenu {
+            MenuItem {
+                text: "Aktualisieren"
+                //TODO
+            }
         }
-        Label {
-            text: "TODO\n get http://www.tagesschau.de/api/inland/"
+        contentHeight: inlandColumn.height
+
+        Column {
+            id: inlandColumn
+            width: inlandPage.width
+
+            PageHeader {
+                title: "Inland"
+            }
+            Label {
+                text: "TODO\n get http://www.tagesschau.de/api/inland/"
+            }
         }
     }
 }

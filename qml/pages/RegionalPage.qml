@@ -27,15 +27,27 @@ import Sailfish.Silica 1.0
 Page {
     id: regionalPage
 
-    Column {
-        id: column
-        width: regionalPage.width
+    SilicaFlickable {
+        anchors.fill: parent
 
-        PageHeader {
-            title: "Regional"
+        PullDownMenu {
+            MenuItem {
+                text: "Aktualisieren"
+                //TODO
+            }
         }
-        Label {
-            text: "TODO\n http://www.tagesschau.de/api/regional/"
+        contentHeight: regionalColumn
+
+        Column {
+            id: regionalColumn
+            width: regionalPage.width
+
+            PageHeader {
+                title: "Regional"
+            }
+            Label {
+                text: "TODO\n http://www.tagesschau.de/api/regional/"
+            }
         }
     }
 }

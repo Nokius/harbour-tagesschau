@@ -1,4 +1,4 @@
-﻿/*
+/*
                   Copyright (C) 2015 Nokius
 
 This work is free. You can redistribute it and/or modify it under the
@@ -24,25 +24,25 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 Page {
-    id: impressumPage
+    id: datenschutzPage
 
-    property var impressum
+    property var datenschutzerklaerung
 
     function getData() {
         var xmlhttp = new XMLHttpRequest();
-        var url = "http://www.tagesschau.de/api/impressum/mobileappimpressum100.json";
+        var url =  "http://www.tagesschau.de/api/datenschutzerklaerung100.json";
 
         xmlhttp.onreadystatechange=function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                parseFunction(xmlhttp.responseText);
+                parseFunctio(xmlhttp.responseText);
             }
         }
         xmlhttp.open("GET", url, true);
         xmlhttp.send();
     }
 
-    function parseFunction(responseText) {
-        impressum = JSON.parse(responseText);
+    function parseFunction(responeText) {
+        datenschutzerklaerung = JSON.parse(responeText);
     }
 
     Component.onCompleted: {
@@ -50,7 +50,7 @@ Page {
     }
 
     Component {
-        id: impressumListComponent
+        id: datenschutzListComponent
 
         Label {
             anchors {
@@ -67,30 +67,32 @@ Page {
         }
     }
 
-    SilicaListView{
-        id: impressumListView
-        anchors.fill: impressumPage
-        model: impressum.copytext
-        delegate: impressumListComponent
+    SilicaListView {
+        id: datenschutzListView
+        anchors.fill: datenschutzPage
+        model: datenschutzerklaerung.copytext
+        delegate: datenschutzListComponent
         header: Column {
-            id: impressumColumn
+            id: datenschutzColumn
             anchors.horizontalCenter: parent.horizontalCenter
             width: parent.width
 
             PageHeader {
-                id: impressumPageHeader
-                title: impressum.topline
+                id: datenschutzPageHeader
+                title: datenschutzerklaerung.topline
+            }
+
+
+            Text {
+                id: infograyHeader
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 480
+                wrapMode: Text.WordWrap
+                font.bold: true
+                text: datenschutzerklaerung.headline
+                color: Theme.secondaryColor
             }
         }
-        footer: Button {
-            id: datenshutzButton
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: 300
-            text: "Datenschutzerklärung"
-            onClicked: pageStack.push(Qt.resolvedUrl("DatenschutzPage.qml"))
-            color: Theme.highlightColor
-            visible: impressumPageHeader.text.length > 0
-        }
     }
-    VerticalScrollDecorator { flickable: impressumListView }
+    VerticalScrollDecorator { flickable: datenschutzListView }
 }
