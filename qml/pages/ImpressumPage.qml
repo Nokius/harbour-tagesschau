@@ -23,15 +23,10 @@ as published by Sam Hocevar. See below for more details.
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 
-
-/*TODO:
-  Button Datenschuterklaerung vertecken
-  Aktualisieren testen!
-  die ID los werden in der mail
-  */
-
 Page {
     id: impressumPage
+
+    property var impressum
 
     function getData() {
         var xmlhttp = new XMLHttpRequest();
@@ -39,131 +34,63 @@ Page {
 
         xmlhttp.onreadystatechange=function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                praseFunction(xmlhttp.responseText);
+                parseFunction(xmlhttp.responseText);
             }
         }
         xmlhttp.open("GET", url, true);
         xmlhttp.send();
     }
 
-    function praseFunction(responseText) {
-        var impressum = JSON.parse(responseText);
-
-        ueberschriftText.text = impressum.copytext[0].text;
-        adresseText.text = impressum.copytext[1].text;
-        idnummerText.text = impressum.copytext[2].text;
-        infoText.text = impressum.copytext[3].text;
-        chefredaktionText.text = impressum.copytext[4].text;
-        kontaktText.text = impressum.copytext[5].text;
-        haftungshinweisText.text = impressum.copytext[6].text;
-        datenschutzText.text = impressum.copytext[7].text;
+    function parseFunction(responseText) {
+        impressum = JSON.parse(responseText);
     }
 
     Component.onCompleted: {
         getData()
     }
 
-    SilicaFlickable {
-        id: impressumPageFlickable
-        anchors.fill: parent
-        contentHeight: impressumColumn.height
+    Component {
+        id: impressumListComponent
 
-        PullDownMenu {
-            MenuItem {
-                text: "Aktualisieren"
-                onClicked: getData()
-            }
-        }
-
-        Column {
-            id: impressumColumn
-            width: impressumPage.width
-            spacing: 15
-
-            PageHeader {
-                title: "Impressum"
+        Label {
+            anchors {
+                left: parent.left
+                right: parent.right
+                margins: Theme.paddingLarge
             }
 
-            Text {
-                id: ueberschriftText
-                anchors.horizontalCenter: parent.horizontalCenter
-                width: 480
-                font.bold: true
-                text: ""
-                color: Theme.secondaryColor
-            }
-
-            Text {
-                id: adresseText
-                anchors.horizontalCenter: parent.horizontalCenter
-                width: 480
-                wrapMode: Text.WordWrap
-                text: ""
-                color: Theme.highlightColor
-            }
-
-            Text {
-                id: idnummerText
-                anchors.horizontalCenter: parent.horizontalCenter
-                width: 480
-                wrapMode: Text.WordWrap
-                text: ""
-                color: Theme.highlightColor
-            }
-
-            Text {
-                id: infoText
-                anchors.horizontalCenter: parent.horizontalCenter
-                width: 480
-                wrapMode: Text.WordWrap
-                text: ""
-                color: Theme.highlightColor
-            }
-
-            Text {
-                id: chefredaktionText
-                anchors.horizontalCenter: parent.horizontalCenter
-                width: 480
-                wrapMode: Text.WordWrap
-                text: ""
-                color: Theme.highlightColor
-            }
-
-            Text {
-                id: kontaktText
-                anchors.horizontalCenter: parent.horizontalCenter
-                width: 480
-                wrapMode: Text.WordWrap
-                text: ""
-                color: Theme.highlightColor
-            }
-
-            Text {
-                id: haftungshinweisText
-                anchors.horizontalCenter: parent.horizontalCenter
-                width: 480
-                wrapMode: Text.WordWrap
-                text: ""
-                color: Theme.highlightColor
-            }
-            Text {
-                id: datenschutzText
-                anchors.horizontalCenter: parent.horizontalCenter
-                width: 480
-                wrapMode: Text.WordWrap
-                text: ""
-                color: Theme.highlightColor
-            }
-            Button {
-                id: datenshutzButton
-                anchors.horizontalCenter: parent.horizontalCenter
-                width: 300
-                text: "Datenschutzerklärung"
-                onClicked: pageStack.push(Qt.resolvedUrl("DatenschutzPage.qml"))
-                color: Theme.highlightColor
-                visible: ueberschriftText.text.length > 0
-            }
+            wrapMode: Text.WordWrap
+            horizontalAlignment: modelData.paragraphStyle === "absatz" ? Text.AlignLeft : Text.AlignHCenter
+            font.bold: modelData.paragraphStyle !== "absatz"
+            text: modelData.text
+            color: modelData.paragraphStyle === "absatz" ? Theme.secondaryColor : Theme.highlightColor
         }
     }
-    VerticalScrollDecorator { flickable: impressumPageFlickable }
+
+    SilicaListView{
+        id: impressumListView
+        anchors.fill: impressumPage
+        model: impressum.copytext
+        delegate: impressumListComponent
+        header: Column {
+            id: impressumColumn
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width
+
+            PageHeader {
+                id: impressumPageHeader
+                title: impressum.topline
+            }
+        }
+        footer: Button {
+            id: datenshutzButton
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: 300
+            text: "Datenschutzerklärung"
+            onClicked: pageStack.push(Qt.resolvedUrl("DatenschutzPage.qml"))
+            color: Theme.highlightColor
+            visible: impressumPageHeader.text.length > 0
+        }
+    }
+    VerticalScrollDecorator { flickable: impressumListView }
 }
