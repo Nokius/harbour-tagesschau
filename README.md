@@ -1,12 +1,19 @@
 # harbour-tagesschau
 
-## Was ist das Project?
+## Was ist das Projekt?
 Das ist eine aplha für eine native Tageschau Appliation für SailfishOS.
 
-#### TODO
-*  Json parsing ^-^
-*  Felder für die Json Inhalte
-*  bug fixing
+### Thanks
 
-#### Done
-*  80% GUI
+Großes Danke an:
+Big Thanks to:
+
+* Coderus
+* ejjoman
+* faniel
+* M4rtinK
+* SK_works
+
+### Lizenz
+
+WTFPL
