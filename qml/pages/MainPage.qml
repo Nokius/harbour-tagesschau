@@ -22,183 +22,107 @@ as published by Sam Hocevar. See below for more details.
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-
+import QtGraphicalEffects 1.0
 
 Page {
-    id: mainPage
+    id: ueberblickPage
+
+    property var ueberblick
 
     function getData() {
         var xmlhttp = new XMLHttpRequest();
-        //var url = "https://gist.githubusercontent.com/Nokius/ca6d9cba70ca94deb309/raw/0ef81123de32a0e4974a7cf2c4a48c99a6294c38/gistfile1.txt"
         var url = "http://www.tagesschau.de/api/index.json";
 
         xmlhttp.onreadystatechange=function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                praseFunction(xmlhttp.responseText);
+                parseFunction(xmlhttp.responseText);
             }
         }
         xmlhttp.open("GET", url, true);
         xmlhttp.send();
     }
 
-    function praseFunction(responseText) {
-        var ueberblick = JSON.parse(responseText);
-
-        // check size of the array
-        if (ueberblick.breakingnews.length > 0) {
-            breakingnewsHeader.text = ueberblick.breakingnews[0].topline;
-            breakingnewsHeadline.text = ueberblick.breakingnews[0].headline;
-            breakingnewsText.text = ueberblick.breakingnews[0].shorttext;
-        }
-
-        topstoriesheadlineText.text = ueberblick.topstories[0].shortheadline;
-        topstoriesshorttextText.text = ueberblick.topstories[0].shorttext;
-        topstoriesImage.source = ueberblick.topstories[0].images[0].variants[6].gross16x9;
-        if (ueberblick.topstories[0].multimedia-buttons[0].type == audio) {
-            topstoriesaudioLabel.text = ueberblick.topstories[0].headline;
-        }
-
-        // varialbe for the DetailsPage
-        var  topstoriesdetails = ueberblick.topstories[0].details;
-
+    function parseFunction(responseText) {
+        ueberblick = JSON.parse(responseText);
     }
 
     Component.onCompleted: {
         getData()
     }
 
-    SilicaFlickable {
-        id: ueberblickPageFlickable
-        anchors.fill: parent
-        contentHeight: mainColumn.height
+    Component {
+        id: ueberblickListComponent
 
-        PullDownMenu {
-            MenuItem {
-                text: ("Menü")
-                onClicked: pageStack.push(Qt.resolvedUrl("MenuePage.qml"))
+        Label {
+            anchors {
+                left:  parent.left
+                right: parent.right
+                margins: Theme.paddingLarge
             }
-            MenuItem {
-                text: ("Ak­tu­a­li­sie­ren")
-                onClicked: getData()
-            }
+
+            wrapMode: Text.WordWrap
+            horizontalAlignment: Text.AlignCenter
+            text: modelData.shorttext
+            color: Theme.secondaryColor
         }
+    }
 
-        Column {
-            id: mainColumn
-            width: mainPage.width
-            //spacing: 20
+    SilicaListView {
+        id: ueberblickListView
+        anchors.fill: ueberblickPage
+        model: ueberblick.teaser
+        delegate: ueberblickListComponent
+        header: Column {
+            id: ueberblickColumn
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width
 
             PageHeader {
                 id: ueberblickPageHeader
-                title: ("Nachrichtenüberblick")
+                title: "Nachrichtenüberblick"
             }
 
-            // Eilmeldung
             Column {
-                id: eilmeldungColumn
-                anchors.horizontalCenter: parent.horizontalCenter
-                width: 480
-                spacing: 10
-                visible: breakingnewsHeader.text.length > 0
-
-                 SectionHeader {
-                    id: breakingnewsHeader
-                    font.bold: true
-                    text: ""
-                    color: Theme.highlightColor
-                }
-
-                Text {
-                    id: breakingnewsHeadline
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    width: parent.width
-                    wrapMode: Text.WordWrap
-                    text: ""
-                    font.pixelSize: Theme.fontSizeMedium
-                    color: Theme.highlightColor
-                }
-
-                Text {
-                   id: breakingnewsText
-                   anchors.horizontalCenter: parent.horizontalCenter
-                   width: parent.width
-                   wrapMode: Text.WordWrap
-                   text: ""
-                   font.pixelSize: Theme.fontSizeMedium
-                   color: Theme.highlightColor
-                }
-            }
-
-            // Topstories
-            Column  {
-                id: topstoriesColum
+                id: ueberblickTopstoriesColumn
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: 480
                 spacing: 10
 
                 Image {
-                    id: topstoriesImage
+                    id: ueberblickTopstoriesImage
                     anchors.horizontalCenter: parent.horizontalCenter
-                    source: ""
                     width: parent.width
+                    source: ueberblick.topstories[0].images[0].variants[6].gross16x9
                     smooth: true
                     fillMode: Image.PreserveAspectFit
                 }
 
                 Text {
-                    id: topstoriesheadlineText
+                    id: ueberblickTopstoriesHeadline
                     anchors.horizontalCenter: parent.horizontalCenter
                     width: parent.width
                     wrapMode: Text.WordWrap
                     font.bold: true
-                    text: ""
-                    font.pixelSize: Theme.fontSizeMedium
+                    text: ueberblick.topstories[0].shortheadline
                     color: Theme.highlightColor
                 }
 
                 Text {
-                    id: topstoriesshorttextText
+                    id: uberblickTopstoriesHeadline
                     anchors.horizontalCenter: parent.horizontalCenter
                     width: parent.width
                     wrapMode: Text.WordWrap
-                    text: ""
-                    font.pixelSize: Theme.fontSizeMedium
-                    color: Theme.highlightColor
-
-                    MouseArea {
-                        id: topstoriesPage
-                        anchors.fill: parent
-                        onClicked: pageStack.push(Qt.resolvedUrl("DetailsPage.qml"))
-                    }
-                }
-
-                Rectangle {
-                    id:topstoriesaudio
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    width: parent.width
-                    height: children.height
-                    color: "transparent"
-                    visible: topstoriesaudioLabel.text.length > 0
-
-                    Image {
-                        id: topstoriesaudioIcon
-                        anchors.left: topstoriesaudioLabel.right
-                        source: "images/audio.svg"
-                        smooth: true
-                        fillMode: Image.PreserveAspectFit
-                    }
-
-                    Label {
-                        id: topstoriesaudioLabel
-                        width: text.width
-                        wrapMode: Text.WordWrap
-                        text: ""
-                        font.bold: true
-                    }
+                    text: ueberblick.topstories[0].shorttext
+                    color: Theme.secondaryColor
+                    /* MouseArea {
+                  id: ueberblicktopstoriesMouseArea
+                  anchors.fill: parent
+                  onClicked: pageStacke.push(Qt.resolvedUrl("DetailsPage.qml)
+                  }*/
                 }
             }
         }
-        VerticalScrollDecorator { flickable: ueberblickPageFlickable }
     }
+    VerticalScrollDecorator { flickable: ueberblickListView }
 }
 

@@ -66,6 +66,7 @@ Page {
                  height: 70
                  smooth: true
                  fillMode: Image.PreserveAspectFit
+                 visible: false
              }
              ColorOverlay {
                  anchors.fill: menuIcon
