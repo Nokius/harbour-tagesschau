@@ -1,4 +1,4 @@
-/*
+﻿/*
                   Copyright (C) 2015 Nokius
 
 This work is free. You can redistribute it and/or modify it under the
@@ -50,27 +50,66 @@ Page {
         getData()
     }
 
+    // not working
+    /*SilicaFlickable {
+        id: ueberblickPageFlickable
+        anchors.fill: parent
+        contentHeight: ueberblickListView.height
+
+        PullDownMenu {
+            MenuItem {
+                text: ("Menü")
+                onClicked: pageStack.push(Qt.resolvedUrl("MenuePage.qml"))
+            }
+            MenuItem {
+                text: ("Ak­tu­a­li­sie­ren")
+                onClicked: getData()
+            }
+        }
+    }*/
+
     Component {
         id: ueberblickListComponent
 
-        Label {
-            anchors {
-                left:  parent.left
-                right: parent.right
-                margins: Theme.paddingLarge
+        Rectangle {
+            id: ueberblickRectangle
+            width: parent.width; height: ueberblickteasersImage.height + ueberblickteaserstoplineLabel.height + ueberblickteaserstopsshorttextLabel.height
+            color: "transparent"
+
+            Image {
+                id: ueberblickteasersImage
+                anchors.horizontalCenter: parent.horizontalCenter
+                source: modelData.images[0].variants[1].modPremiumHalb
+                width: 480
+                smooth: true
+                fillMode: Image.PreserveAspectFit
             }
 
-            wrapMode: Text.WordWrap
-            horizontalAlignment: Text.AlignCenter
-            text: modelData.shorttext
-            color: Theme.secondaryColor
+            Label {
+                id: ueberblickteaserstoplineLabel
+                anchors { top: ueberblickteasersImage.bottom; horizontalCenter: parent.horizontalCenter }
+                width: 480
+                wrapMode: Text.WordWrap
+                text: modelData.topline
+                font.bold: true
+                color: Theme.highlightColor
+            }
+
+            Label {
+                id: ueberblickteaserstopsshorttextLabel
+                anchors { top: ueberblickteaserstoplineLabel.bottom; horizontalCenter: parent.horizontalCenter }
+                width: 480
+                wrapMode: Text.WordWrap
+                text: modelData.shorttext
+                color: Theme.secondaryColor
+            }
         }
     }
 
     SilicaListView {
         id: ueberblickListView
         anchors.fill: ueberblickPage
-        model: ueberblick.teaser
+        model: ueberblick.teasers
         delegate: ueberblickListComponent
         header: Column {
             id: ueberblickColumn
@@ -114,11 +153,107 @@ Page {
                     wrapMode: Text.WordWrap
                     text: ueberblick.topstories[0].shorttext
                     color: Theme.secondaryColor
-                    /* MouseArea {
-                  id: ueberblicktopstoriesMouseArea
-                  anchors.fill: parent
-                  onClicked: pageStacke.push(Qt.resolvedUrl("DetailsPage.qml)
-                  }*/
+
+                    MouseArea {
+                        id: ueberblicktopstoriesMouseArea
+                        anchors.fill: parent
+                        onClicked: pageStack.push(Qt.resolvedUrl("DetailsPage.qml"))
+                    }
+                }
+
+                Rectangle {
+                    id:topstoriesaudio
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    width: parent.width
+                    height: topstoriesaudioIcon.height && topstoriesaudioLabel.height
+                    color: "transparent"
+                    visible: topstoriesaudioLabel.text.length > 0
+
+                    Image {
+                        id: topstoriesaudioIcon
+                        anchors.left: parent.left
+                        source: "images/audio.svg"
+                        width: 40
+                        height: 40
+                        smooth: true
+                        fillMode: Image.PreserveAspectFit
+                        visible: false
+                    }
+
+                    ColorOverlay {
+                        anchors.fill: topstoriesaudioIcon
+                        source: topstoriesaudioIcon
+                        color: Theme.secondaryColor
+                    }
+
+                    Label {
+                        id: topstoriesaudioLabel
+                        anchors.right: parent.right
+                        width: 430
+                        wrapMode: Text.WordWrap
+                        text: {
+                            if (ueberblick.topstories[0]["multimedia-buttons"].length === 1) {
+                                if (ueberblick.topstories[0]["multimedia-buttons"][0].type === "audio") {
+                                    return topstoriesaudioLabel.text = ueberblick.topstories[0]["multimedia-buttons"][0].headline;
+                                }
+                                return ""
+                            }
+                        }
+                        color: Theme.highlightColor
+                        font.bold: true
+                    }
+
+                    MouseArea {
+                        id: topstoriesaudioMouseArea
+                        anchors.fill: parent
+                        onClicked: pageStack.push(Qt.resolvedUrl("DetailsPage.qml"))
+                    }
+                }
+                Rectangle {
+                    id:topstoriesvideo
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    width: parent.width
+                    height: topstoriesvideoIcon.height && topstoriesvideoLabel.height
+                    color: "transparent"
+                    visible: topstoriesvideoLabel.text.length > 0
+
+                    Image {
+                        id: topstoriesvideoIcon
+                        anchors.left: parent.left
+                        source: "images/video.svg"
+                        width: 40
+                        height: 40
+                        smooth: true
+                        fillMode: Image.PreserveAspectFit
+                        visible: false
+                    }
+
+                    ColorOverlay {
+                        anchors.fill: topstoriesvideoIcon
+                        source: topstoriesvideoIcon
+                        color: Theme.secondaryColor
+                    }
+
+                    Label {
+                        id: topstoriesvideoLabel
+                        anchors.right: parent.right
+                        width: 430
+                        wrapMode: Text.WordWrap
+                        text: {
+                            if (ueberblick.topstories[0]["multimedia-buttons"][0].type === "video") {
+                                    return topstoriesvideoLabel.text = ueberblick.topstories[0]["multimedia-buttons"][0].headline;
+                                }
+                            return ""
+                        }
+                        color: Theme.highlightColor
+                        font.bold: true
+                    }
+
+                    MouseArea {
+                        id: topstoriesvideoMouseArea
+                        anchors.fill: parent
+                        onClicked: pageStack.push(Qt.resolvedUrl("DetailsPage.qml"))
+                    }
                 }
             }
         }
