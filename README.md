@@ -1,7 +1,7 @@
 # harbour-tagesschau
 
 ## Was ist das Projekt?
-Das ist eine aplha für eine native Tageschau Appliation für SailfishOS.
+Das ist eine aplha für eine native Tageschau Applikation für SailfishOS.
 
 ### Thanks
 
