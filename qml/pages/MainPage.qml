@@ -60,6 +60,7 @@ Page {
 
         Column {
             width: parent.width
+            spacing: 3
 
             Image {
                 id: ueberblickteasersImage
@@ -96,6 +97,7 @@ Page {
 
         Column {
             width: parent.width
+            spacing: 3
 
             Image {
                 id: ueberblickTopstoriesImage
