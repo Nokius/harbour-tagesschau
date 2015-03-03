@@ -108,7 +108,12 @@ Page {
 
             Text {
                 id: ueberblickTopstoriesHeadline
-                horizontalAlignment: Text.AlignHCenter
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                    margins: Theme.paddingLarge
+                }
+                anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width
                 wrapMode: Text.WordWrap
                 font.bold: true
@@ -118,7 +123,12 @@ Page {
 
             Text {
                 id: ueberblickTopstoriesText
-                horizontalAlignment: Text.AlignHCenter
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                    margins: Theme.paddingLarge
+                }
+                anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width
                 wrapMode: Text.WordWrap
                 text: modelData.shorttext
