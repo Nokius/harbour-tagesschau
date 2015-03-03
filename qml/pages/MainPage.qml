@@ -115,7 +115,6 @@ Page {
                     right: parent.right
                     margins: Theme.paddingLarge
                 }
-                anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width
                 wrapMode: Text.WordWrap
                 font.bold: true
@@ -130,7 +129,6 @@ Page {
                     right: parent.right
                     margins: Theme.paddingLarge
                 }
-                anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width
                 wrapMode: Text.WordWrap
                 text: modelData.shorttext
